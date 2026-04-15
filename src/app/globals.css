@@ -1,0 +1,278 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+/* Design tokens — consumed by Tailwind utilities (bg-surface, text-accent, etc.) */
+@theme {
+  --font-sans: 'Inter', sans-serif;
+  --font-mono: 'Courier New', monospace;
+
+  --color-app-bg:         #1a1e27;
+  --color-surface:        #262a33;
+  --color-surface-2:      #2d313c;
+  --color-surface-hover:  #363a47;
+  --color-surface-active: #21252e;
+  --color-accent:         #63b3ed;
+  --color-accent-hover:   #4299e1;
+  --color-app-text:       #f7fafc;
+  --color-text-sec:       #e2e8f0;
+  --color-text-muted:     #a0aec0;
+  --color-text-dim:       #cbd5e0;
+  --color-text-faint:     #4a5568;
+  --color-error:          #fc8181;
+  --color-error-dark:     #e53e3e;
+  --color-error-darker:   #f56565;
+  --color-success:        #68d391;
+}
+
+body {
+  background-color: var(--color-app-bg);
+  color: var(--color-text-sec);
+}
+
+/* ── Animated dropdown — animation cannot be expressed as a Tailwind utility ── */
+.header-dropdown-menu {
+  animation: fadeInDown 0.2s ease-out;
+}
+
+.header-dropdown-item {
+  display: block;
+  padding: 0.75rem 1.25rem;
+  color: var(--color-text-sec);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  width: 100%;
+  text-align: left;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.header-dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.header-dropdown-item:hover {
+  background-color: var(--color-surface-hover);
+  color: var(--color-accent);
+}
+
+/* ── Buttons — complex hover transforms with cubic-bezier timing ── */
+.button {
+  padding: 1.1rem 2.8rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  outline: none;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.button:focus {
+  box-shadow: 0 0 0 4px rgba(99, 179, 237, 0.5);
+}
+
+.button.login  { background-color: var(--color-accent);      color: var(--color-app-bg); }
+.button.logout { background-color: var(--color-error);       color: var(--color-app-bg); }
+
+.button.login:hover {
+  background-color: var(--color-accent-hover);
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
+}
+
+.button.logout:hover {
+  background-color: var(--color-error-dark);
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Form inputs — inset shadows + :user-invalid pseudo-class ── */
+.form-input {
+  background-color: var(--color-app-bg);
+  border: 2px solid rgba(99, 179, 237, 0.2);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  color: var(--color-text-sec);
+  font-size: 1.3rem;
+  transition: all 0.3s ease;
+  font-family: var(--font-sans);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  width: 100%;
+}
+
+.form-input:hover { border-color: rgba(99, 179, 237, 0.4); }
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.15), inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  background-color: var(--color-surface-active);
+}
+
+.form-input::placeholder { color: var(--color-text-faint); font-weight: 400; }
+
+/* :user-invalid is preferred over :invalid for React controlled inputs —
+   placeholder-shown misbehaves when React syncs the value DOM property. */
+.form-input:user-invalid {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px rgba(252, 129, 129, 0.15), inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.form-input:user-invalid:hover  { border-color: var(--color-error-darker); }
+
+.form-input:user-invalid:focus {
+  border-color: var(--color-error-darker);
+  box-shadow: 0 0 0 3px rgba(245, 101, 101, 0.2), inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* ── Color picker inputs ── */
+.color-input {
+  flex: 1;
+  background-color: var(--color-app-bg);
+  border: 2px solid rgba(99, 179, 237, 0.2);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  color: var(--color-text-sec);
+  font-size: 1.3rem;
+  font-family: var(--font-mono);
+  transition: all 0.3s ease;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-weight: 600;
+}
+
+.color-input:hover { border-color: rgba(99, 179, 237, 0.4); }
+
+.color-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.15), inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  background-color: var(--color-surface-active);
+}
+
+.color-picker {
+  width: 70px;
+  height: auto;
+  align-self: stretch;
+  border: 2px solid rgba(99, 179, 237, 0.2);
+  border-radius: 12px;
+  cursor: pointer;
+  background: transparent;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.color-picker:hover { border-color: rgba(99, 179, 237, 0.5); transform: scale(1.05); }
+
+.color-picker:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.15);
+}
+
+/* ── Save button — gradient background + grid-column full span ── */
+.save-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 14px;
+  padding: 0.875rem 2rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  grid-column: 1 / -1;
+}
+
+.save-button:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 36px rgba(102, 126, 234, 0.5);
+}
+
+.save-button:active:not(:disabled) { transform: translateY(-1px); }
+
+.save-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── Status messages — gradient backgrounds + grid-column full span ── */
+.message {
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 600;
+  animation: fadeInScale 0.3s ease-out;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  grid-column: 1 / -1;
+}
+
+.message.success {
+  background: linear-gradient(135deg, rgba(72, 187, 120, 0.15) 0%, rgba(56, 161, 105, 0.15) 100%);
+  color: var(--color-success);
+  border: 2px solid rgba(72, 187, 120, 0.4);
+}
+
+.message.error {
+  background: linear-gradient(135deg, rgba(245, 101, 101, 0.15) 0%, rgba(229, 62, 62, 0.15) 100%);
+  color: var(--color-error);
+  border: 2px solid rgba(245, 101, 101, 0.4);
+}
+
+/* ── Logo preview area — gradient bg with dashed accent border ── */
+.logo-preview {
+  margin-top: 0.25rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(99, 179, 237, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+  border: 2px dashed rgba(99, 179, 237, 0.3);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
+}
+
+.logo-preview img {
+  max-width: 200px;
+  max-height: 90px;
+  object-fit: contain;
+}
+
+/* ── Keyframe animations ── */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.6; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to   { opacity: 1; transform: scale(1); }
+}
