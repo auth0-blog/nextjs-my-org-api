@@ -18,7 +18,7 @@ export async function saveOrgSettings(settings: MyOrganization.OrgDetails) {
     const { token } = await auth0.getAccessToken();
     const client = new MyOrganizationClient({
         domain: process.env.AUTH0_DOMAIN,
-        token: async () => token,
+        token: token,
     });
     // 👆 new code
 
