@@ -8,7 +8,7 @@ import { saveOrgSettings } from "./actions";
 
 // initialSettings will be passed as a prop from the Server Component.
 interface Props {
-  initialSettings: MyOrganization.OrgDetails;
+  initialSettings: MyOrganization.OrgDetailsRead;
 }
 
 export default function OrgSettingsForm({ initialSettings }: Props) {

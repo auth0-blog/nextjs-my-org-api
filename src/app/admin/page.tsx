@@ -8,22 +8,20 @@ export default async function AdminDashboard() {
     // 👇 new code 
 
   if (!process.env.AUTH0_DOMAIN) throw new Error('AUTH0_DOMAIN environment variable is not set');    
+  const session = await auth0.getSession();
+  const token = session?.tokenSet?.accessToken;
+  if (!token) throw new Error("No access token in session");
   // Initialize the MyOrganizationClient.
   const client = new MyOrganizationClient({
     domain: process.env.AUTH0_DOMAIN,
-    token: async () => {
-      const session = await auth0.getSession();
-      const token = session?.tokenSet?.accessToken;
-      if (!token) throw new Error("No access token in session");
-      return token;
-    },
+    token: token,
   });
 
   // 👆 new code
 
   // 👇 new code 
   // Fetch initial org settings to populate the form. This is a Server Component, so the data is fresh on each request.
-  const initialSettings: MyOrganization.OrgDetails =
+  const initialSettings: MyOrganization.OrgDetailsRead =
     (await client.organizationDetails.get()) ?? {};
   // 👆 new code
 
