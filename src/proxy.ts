@@ -44,18 +44,6 @@ export async function proxy(request: NextRequest) {
       });
       return redirectRes;
     }
-      // 👇 new code 
-    
-    // Ensure the session cookie always holds an active access token before the Server Component runs.
-    try {
-      await auth0.getAccessToken(request, authRes);
-    } catch (err) {
-      console.error("Token refresh failed in proxy:", err instanceof Error ? err.message : String(err));
-      return NextResponse.redirect(
-        new URL("/auth/logout", request.nextUrl.origin)
-      );
-    }
-    // 👆 new code 
   }
 
   // For all other routes, return authRes.
