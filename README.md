@@ -20,9 +20,9 @@ To set up and run this sample project, you will need:
 Follow these steps to get the application running locally:
 
 1. Follow the blog to setup Organizations feature on your Auth0 tenant
-1. Clone the repository from GitHub:
+1. Clone the branch from GitHub:
    ```bash
-   git clone https://github.com/oktadev/nextjs-my-org-api.git
+   git clone --branch starter --single-branch https://github.com/auth0-blog/nextjs-my-org-api.git
    ```
 2. Navigate into the project directory and install dependencies:
    ```bash
